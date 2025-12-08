@@ -1,0 +1,225 @@
+/* ====== STYLE UMUM ====== */
+body {
+    background: #f5f7fb;
+}
+
+/* --- HERO/CAROUSEL STYLING --- */
+
+/* **PENTING: MENGHILANGKAN MARGIN/PADDING YANG MENYEBABKAN KEMIRINGAN** */
+.hero-content .row {
+    /* Menghilangkan margin horizontal default dari Bootstrap row */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100%;
+}
+/* END FIX */
+
+.hero-wrapper {
+    background: none;
+    position: relative;
+    height: 550px; 
+    padding: 0;
+    overflow: hidden;
+}
+
+.hero-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 5;
+}
+
+.hero-content {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; 
+}
+
+#heroCarousel, .carousel-inner, .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-item {
+    background-position: center;
+    background-size: cover;
+    transition: transform 1.5s ease-in-out; 
+}
+
+.hero-title-overlay {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+}
+.hero-text-overlay {
+    font-size: 1.25rem;
+}
+.hero-text-left {
+    text-align: left !important;
+}
+
+/* Memastikan form di sisi kanan tetap rapi */
+.search-box-right {
+    width: 100%; 
+    max-width: 450px; 
+    margin-left: auto;
+}
+/* --- END HERO STYLING --- */
+
+
+.search-box {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    padding: 25px;
+}
+
+.route-card {
+    border-radius: 14px;
+    border: 1px solid #e3e6ee;
+    transition: box-shadow 0.3s;
+}
+
+.route-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ====== NAVBAR / LOGO ====== */
+.brand-title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.orange {
+    color: #ff7b00;
+}
+
+.orange:hover {
+    color: #ffa84d;
+    transition: 0.3s;
+}
+
+/* Style untuk link navigasi di navbar Admin */
+.nav-link.active {
+    color: #ff7b00 !important;
+    border-bottom: 3px solid #ff7b00;
+}
+
+/* ====== BUTTONS / COLORS ====== */
+.search-title {
+    color: #333333;
+}
+
+.btn-orange {
+    background-color: #ff7b00 !important;
+    border-color: #ff7b00 !important;
+    color: #fff !important;
+}
+
+.btn-orange:hover {
+    background-color: #ff9933 !important;
+    border-color: #ff9933 !important;
+}
+
+/* ====== LOGIN/REGISTER PAGE STYLE ====== */
+.login-bg-dark, .register-bg-dark {
+    min-height: 100vh;
+    background-color: #212529; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-card, .register-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.login-card { max-width: 450px; width: 100%; }
+.register-card { max-width: 550px; width: 100%; }
+
+/* Gaya untuk tombol mata */
+.input-group-text {
+    cursor: pointer;
+}
+/* Gaya untuk Total Harga di Dashboard */
+.total-harga-box {
+    background-color: #fff3cd; 
+    border: 1px solid #ffc107;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* ===== POPUP PROMO PERTAMA KALI BUKA ===== */
+.promo-modal-content {
+    border-radius: 18px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: transparent;
+}
+
+.promo-modal-content img {
+    display: block;
+}
+
+.promo-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 5;
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 6px;
+    opacity: 0.9;
+}
+.promo-close:hover {
+    opacity: 1;
+}
+
+/* Hilangkan icon X putih bawaan bootstrap */
+.btn-close {
+    background: none !important;
+}
+
+/* Tombol close custom */
+.promo-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 9999;
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 6px;
+    opacity: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Bikin ikon X hitam */
+.promo-close::after {
+    content: "✕";
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}

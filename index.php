@@ -15,6 +15,7 @@ include 'koneksi.php'; // Pastikan file koneksi.php ada dan berfungsi
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        /* ====== STYLE UMUM ====== */
         :root {
             --primary-color: #ff7b00;
             --secondary-color: #212529;
@@ -25,11 +26,12 @@ include 'koneksi.php'; // Pastikan file koneksi.php ada dan berfungsi
             overflow-x: hidden;
         }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR (Supaya selalu di paling atas) --- */
         .navbar {
             background: rgba(33, 37, 41, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 0;
+            z-index: 1000; /* Paling atas */
         }
         .brand-title {
             font-weight: 700;
@@ -39,25 +41,31 @@ include 'koneksi.php'; // Pastikan file koneksi.php ada dan berfungsi
         }
         .orange { color: var(--primary-color); }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (Area Gambar Utama) --- */
         .hero-wrapper {
             position: relative;
-            height: 600px;
+            height: 600px; /* Tinggi Laptop */
             width: 100%;
             overflow: hidden;
+            background-color: #333; /* Warna cadangan kalau gambar gagal load */
         }
+        
+        /* LAPISAN HITAM (Overlay) - Dibuat lebih tipis (0.5) agar gambar terang */
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+            background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.2)); 
             z-index: 2;
         }
+
         .carousel-item {
             height: 600px;
             background-position: center;
             background-size: cover;
-            transition: transform 1.5s ease-in-out; /* Animasi slide halus */
+            transition: transform 1.5s ease-in-out; 
         }
+        
+        /* Container untuk Tulisan & Form */
         .hero-content {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -65,8 +73,13 @@ include 'koneksi.php'; // Pastikan file koneksi.php ada dan berfungsi
             display: flex;
             align-items: center;
         }
+        .hero-content .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100%;
+        }
 
-        /* --- GLASSMORPHISM SEARCH BOX --- */
+        /* --- GLASSMORPHISM SEARCH BOX (Kotak Cari Tiket) --- */
         .glass-card {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
@@ -77,94 +90,96 @@ include 'koneksi.php'; // Pastikan file koneksi.php ada dan berfungsi
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             color: white;
         }
-        .glass-card label {
-            font-weight: 500;
-            color: #f8f9fa;
-            margin-bottom: 5px;
-        }
+        .glass-card label { font-weight: 500; color: #f8f9fa; margin-bottom: 5px; }
         .glass-card .form-control, .glass-card .form-select {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 8px;
-            padding: 10px;
+            background: rgba(255, 255, 255, 0.9); border: none; border-radius: 8px; padding: 10px;
         }
-        .glass-card .btn-orange {
-            background: var(--primary-color);
-            border: none;
-            color: white;
-            padding: 12px;
-            font-weight: 700;
-            border-radius: 8px;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 123, 0, 0.4);
+        .btn-orange {
+            background: var(--primary-color); border: none; color: white; padding: 12px; font-weight: 700; border-radius: 8px; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 123, 0, 0.4);
         }
-        .glass-card .btn-orange:hover {
-            background: #e66e00;
-            transform: translateY(-2px);
-        }
+        .btn-orange:hover { background: #e66e00; color: white; transform: translateY(-2px); }
 
-        /* --- FEATURES SECTION --- */
-        .feature-box {
-            background: white;
-            padding: 30px 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            height: 100%;
-        }
-        .feature-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        .icon-circle {
-            width: 70px; height: 70px;
-            background: rgba(255, 123, 0, 0.1);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px auto;
-            color: var(--primary-color);
-            font-size: 28px;
-        }
-
-        /* --- ROUTE CARDS --- */
-        .route-card {
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            background: white;
-        }
-        .route-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
-        }
-        .route-price {
-            color: var(--primary-color);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        /* --- SERVICE SECTION --- */
-        .service-section {
-            background-color: #212529;
-            color: white;
-            padding: 60px 0;
-            margin-top: 50px;
-            /* background-image: url('images/bg-pattern.png'); Hapus jika tidak ada file ini */
-        }
-
-        /* --- FOOTER --- */
-        .footer-dark {
-            background-color: #1a1d20;
-            color: #adb5bd;
-            padding-top: 50px;
-            padding-bottom: 20px;
-        }
+        /* --- ITEM LAINNYA --- */
+        .feature-box { background: white; padding: 30px 20px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; height: 100%; }
+        .feature-box:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .icon-circle { width: 70px; height: 70px; background: rgba(255, 123, 0, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: var(--primary-color); font-size: 28px; }
+        .route-card { border: none; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; background: white; }
+        .route-card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
+        .route-price { color: var(--primary-color); font-weight: 700; font-size: 1.2rem; }
+        .service-section { background-color: #212529; color: white; padding: 60px 0; margin-top: 50px; }
+        .footer-dark { background-color: #1a1d20; color: #adb5bd; padding-top: 50px; padding-bottom: 20px; }
         .footer-title { color: var(--primary-color); font-weight: 700; margin-bottom: 20px; }
         .footer-dark a { color: #adb5bd; text-decoration: none; transition: 0.3s; }
         .footer-dark a:hover { color: var(--primary-color); padding-left: 5px; }
+
+        /* =========================================
+           FIX TAMPILAN HP (WAJIB JALAN)
+           ========================================= */
+        /* =========================================
+           FIX TAMPILAN HP (MOBILE RESPONSIVE) - UPDATE
+           ========================================= */
+        @media (max-width: 991px) {
+            .hero-wrapper {
+                height: auto !important; 
+                min-height: 100vh; 
+                padding-bottom: 50px;
+                background-color: #222; /* Warna dasar hitam jika gambar belum load */
+            }
+
+            /* --- TAMBAHAN PENTING (Agar Gambar Muncul) --- */
+            /* Kita paksa pembungkus carousel untuk menempel penuh ke background */
+            #heroCarousel, .carousel-inner {
+                position: absolute !important;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100% !important;
+                z-index: 1;
+            }
+
+            .carousel-item {
+                height: 100% !important;
+                min-height: 100vh; /* Paksa setinggi layar */
+                background-size: cover;
+                background-position: center;
+                width: 100%;
+                z-index: 1;
+            }
+            /* --------------------------------------------- */
+
+            .hero-content {
+                position: relative !important; 
+                display: block !important; 
+                top: auto !important;
+                left: auto !important;
+                height: auto !important;
+                padding-top: 180px !important; /* Jarak aman dari Navbar */
+                z-index: 5; /* Konten paling atas */
+            }
+            
+            .hero-content h1 {
+                margin-top: 0px !important; 
+                font-size: 2rem !important;
+                text-align: center;
+                line-height: 1.3;
+                margin-bottom: 15px;
+            }
+
+            .hero-content p.lead {
+                font-size: 1rem !important;
+                text-align: center;
+                padding: 0 15px;
+            }
+
+            .hero-content .d-flex {
+                justify-content: center;
+                margin-bottom: 30px;
+            }
+            
+            .glass-card {
+                margin-top: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -471,18 +486,13 @@ include 'koneksi.php'; // Pastikan file koneksi.php ada dan berfungsi
 
     // Script Popup Promo
     document.addEventListener('DOMContentLoaded', function () {
-        // PERBAIKAN LOGIC POPUP:
-        // Cek sessionStorage agar muncul sekali setiap buka browser
         var sudahPernah = sessionStorage.getItem('promo_silexsureng_shown');
-        
-        // Hapus tanda seru (!) di depan sudahPernah jika ingin mencoba test (agar muncul terus)
         if (!sudahPernah) { 
             var modalEl = document.getElementById('promoModal');
             if (modalEl) {
                 var myModal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
                 myModal.show();
                 modalEl.addEventListener('hidden.bs.modal', function () {
-                    // Simpan status sudah dilihat di session browser
                     sessionStorage.setItem('promo_silexsureng_shown', 'yes');
                 });
             }
